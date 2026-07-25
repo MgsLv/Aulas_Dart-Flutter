@@ -1,6 +1,6 @@
 # Aulas_Dart-Flutter
 
-Repositório com estudos, exercícios e práticas de Dart e Flutter.
+Repositório com estudos, exercícios e práticas de Dart e Flutter, feitos durante aulas na Fatec Carapicuiba.
 
 ## Tecnologias utilizadas
 - Dart
