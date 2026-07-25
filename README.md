@@ -13,5 +13,5 @@ Repositório com estudos, exercícios e práticas de Dart e Flutter.
 
 2. Rode a aplicação:
 
-  ```bash
-  flutter run
+   ```bash
+   flutter run
