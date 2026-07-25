@@ -12,6 +12,5 @@ Repositório com estudos, exercícios e práticas de Dart e Flutter.
    flutter pub get
 
 2. Rode a aplicação:
-
    ```bash
    flutter run
