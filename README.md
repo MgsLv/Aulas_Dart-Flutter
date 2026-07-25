@@ -7,12 +7,13 @@ Repositório com estudos, exercícios e práticas de Dart e Flutter, feitos dura
 - Flutter
 
 ## Como rodar o projeto
-1. Instale as dependências:
+1. Instale as dependências na pasta raiz do projeto:
    ```bash
    flutter pub get
+2. Acesse a pasta do exercício/projeto desejado
 
-2. Rode a aplicação:
+3. Rode a aplicação:
    ```bash
    flutter run
 
-3. Escolha o dispositivo desejado, se necessário.
+4. Escolha o dispositivo desejado, se necessário.
