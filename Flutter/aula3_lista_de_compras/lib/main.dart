@@ -12,6 +12,10 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  List produtos = [];
+  // identificação do TextView
+  TextEditingController produtoControler = TextEditingController(); 
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,23 +33,26 @@ class _MainAppState extends State<MainApp> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
+              spacing: 20,
               children: [
                 TextField(
+                  controller: produtoControler,
                   decoration: InputDecoration(
                     labelText: 'produto',
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(90)),
                   ),
                 ),
-                ElevatedButton(onPressed: null, child: Text('Adicionar')),
+                ElevatedButton(onPressed: adicionarProduto, child: Text('Adicionar')),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: 6, // quantidade de itens
+                    itemCount: produtos.length, // quantidade de itens
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: Text('$index'),
-                        title: Text('Protudo $index'),
-                        subtitle: Text('Qtd $index'),
-                        trailing: IconButton(onPressed: null, icon: Icon(Icons.delete)),
+                      return Card(
+                        child: ListTile(
+                          leading: Text('${index + 1}'),
+                          title: Text('${produtos[index]}'),
+                          trailing: IconButton(onPressed: () => removerProduto(index), icon: Icon(Icons.delete)),
+                        ),
                       );
                     },
                   ),
@@ -57,4 +64,27 @@ class _MainAppState extends State<MainApp> {
       ),
     );
   }
+
+  void adicionarProduto() {
+    // limpem o campo apos add
+    // nao add produto vazio
+
+    setState(() {
+      String produto = produtoControler.text;
+      if (produto.trim().isNotEmpty) {
+        produtos.add(produto);
+      }
+      // produtoControler.text = ""; equivalente
+      produtoControler.clear();
+    });
+    
+    // print(produtos); ?
+  }
+
+  void removerProduto(int index) {
+    setState(() {
+      produtos.removeAt(index);
+    });
+  }
+
 }
