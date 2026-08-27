@@ -1,0 +1,233 @@
+Caracteres:
+
+- ?
+- !
+- /
+- \
+
+======================= FLUTTER - AULA 1 ======================= 
+
+- Roda Android, IOS e Windows
+- Escolher o padrão visual (Androind default)
+
+    -> Material: Elementos padrão Android
+        - "Coisas" em comum para todas as telas
+        
+            - Scaffold: Conjunto principal de Widgets, é formado pelos parâmetros:
+                
+                - Drawer (Sidebar Esquerda)
+                - endDrawer (Sidebar Direita)
+                    - AppBar (Header: elementos internos alinhados aos cantos no Android, 
+                                e centralizado no IOS)  
+                    - Body (conteúdo principal com scrow)
+                        - FloatingActionButton (só tem no Android)
+                    - Botton Tab NavBar
+                
+                
+
+    -> Cupertion: Elementos padrão IOS
+
+** Dá para misturar/usar elementos dois dois materiais 
+
+Widget (Componente): 
+
+-> Simples
+-> Conjuntos
+-> Tela (Não roda sem widget padrão de tela)
+
+Exemplos: 
+
+- Scaffold
+    - SafeArea
+        - App Bar
+            - Button
+                - Text
+
+Como classes diferente podem ser componentes diferentes numa tela?
+
+- Herança: uma classe herda os atributos (e estilo) de outras classes, 
+    possuindo suas próprias características
+
+Esse widget está esperando receber um botão, por quê?
+
+- Porque ela herda os atributos de uma classe que, por padrão, espepa um botão
+
+Ex:
+
+class MyApp extends Statelesswidget{...}
+
+OBS: Um elemento sempre vai se extender de uma das clases Widget
+
+Por que está dando erro?
+
+class MyApp extends Statelesswidget{
+
+}
+
+- Ou porque não tem parâmetro contrutor ou porque não tem ou Widget build
+
+    @override
+    Widget build(BuildContext context) {
+        return Text('Todo zuado')
+    }
+
+    OSB: É ele quem vai definir o que o elemento é (Botão, SafeArea, Scaffold etc)
+
+Por quê está com o texto escrito "Todo zuado"?
+
+- Porque um elemento sem um Widget de tela não é gerado corretamente, 
+    por isso:
+        > ou vai dar erro e nem vai rodar
+        > ou vai rodar, mas... "Todo zuado"
+
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(body: Center(child: Text('Hello, World!'))), <-- Home = Tela principal
+    );
+  }
+}
+
+*Hot Reload*
+
+- Tenta recompilar somente as alterações que foram feitas,
+    com isso, ele é muito mais rápido para rodar 
+
+    OBS: Funciona na maioria das vezes, algumas acontece de 
+        ele se perder e ter que tentar de novo 
+
+PARA REMOVER FAIXA "Debug":
+
+    Depois de "return Material():
+        debugShowCheckedModeBanner: false,
+        appBar...
+
+FloatingActionButton:
+    
+- onPressed: evento de disparo para acontecer a lógica 
+
+ESTADO
+
+- """valores das variáveis, atributos em um dado momento"""
+
+- Por Padrão: Stateless -> estado só é alterado 
+                            quando é criada a tela
+- StatefullWidget: estato atualiza sempre que chamamos:
+
+    setState(() {});
+
+    O que ele faz
+
+    - Ele chama o metodo build novamente: 'renderiza a tela'
+    
+    Para atalizar de StatelessWidget para StatefullWidget automáticamente:
+
+    - Atalho: Ctrl + . (ponto)
+
+
+========================================= AULA 2 ============================================
+
+Entendendo a estrutura:
+
+class Curso {
+    *nome 
+    {
+        cargaH,
+        nAlunos
+    }
+}
+
+class Aluno{
+    *nome, tel, curso
+}
+
+Main {
+    Curso c1 = Curso('ADS', cargaH: 40)
+
+    Aluno a1 = Aluno("Ana", curso: c1);
+
+    == Parâmetro anônimo (valor do objeto não passa para uma variável,
+        vai direto no parâmetro)
+    Aluno = a2 = Aluno("João", curso: Curso('ADS', cargaH: 40)) 
+
+    == Identação, usado na classe MaterialApp do flutter
+    return Aluno("João,
+                Curso:  Curso('ADS', 
+                                cargaH: 40)"
+                )
+}
+
+Ex:
+
+== SEMPRE remover "const"
+return MaterialApp(
+        return const MaterialApp(
+            home: Scaffold(
+                body: Center(
+                child: Text('Hello World!'),
+                ),
+            ),
+        );
+)
+
+- Por quê: ele indica que a variável vai ser constante (não pode mudar)
+    Sem ele, essa imutabilidade deixa de ser obrigatória para a classe
+
+    Para usar dentro de child:
+
+        Column( // Padrão Start
+            - > Star    ^
+                        |   
+                        |
+                        |
+                        |
+                        |
+                        | Main axis 
+                        |
+                        |
+                        |
+                        |
+                        |
+                        |
+            ----------->
+                Cross
+            
+        )
+
+        Row (
+                    ^
+                    | Cross
+            ------->
+            Main // Padrão Start
+        )
+
+        - Quando usa Row dentro de Column, geralmente o conteúdo fica
+            colado do lado esquerdo. Para resolver isso, usar:
+            
+            Row(
+                mainAxisAlingment: MainAxisAlingment.center
+                children: ...
+            )
+
+            MainAxisAlingment.center: centraliza o conteúdo
+            MainAxisAlingment.spaceAround: coloca espaço antes e depois dos elementos
+            MainAxisAlingment.spaceBetween: deixa todos com espaçamento responsivo 
+                (pontas vão para as bordas, meio fica centralizado)
+
+            MainAxisAlingment.spaceEvenly: coloca exatamente o mesmo espaçamento entre 
+                os elementos, sem socar o depois + antes do outro elemento
+
+-> SizedBox(valor): Widget de espaçamento
+
+
